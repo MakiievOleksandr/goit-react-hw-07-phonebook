@@ -19,6 +19,8 @@ const Contacts = () => {
   const filter = useSelector(getFilter);
   const dispatch = useDispatch();
 
+  console.log(contacts);
+
   const onAddContact = contactData => {
     if (contacts.find(item => item.name === contactData.name)) {
       alert(`${contactData.name} is already in contacts!`);
@@ -44,13 +46,15 @@ const Contacts = () => {
       <Section title="Phonebook">
         <ContactForm onSubmit={onAddContact} />
       </Section>
-      <Section title="Contacts">
-        <Filter filter={filter} onChangeFilter={changeFilter} />
-        <ContactList
-          onDeleteContact={onDeleteContact}
-          filteredContacts={filteredContacts}
-        />
-      </Section>
+      {contacts.length > 0 && (
+        <Section title="Contacts">
+          <Filter filter={filter} onChangeFilter={changeFilter} />
+          <ContactList
+            onDeleteContact={onDeleteContact}
+            filteredContacts={filteredContacts}
+          />
+        </Section>
+      )}
     </>
   );
 };

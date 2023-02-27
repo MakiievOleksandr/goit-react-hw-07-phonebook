@@ -7,6 +7,7 @@ import initialState from './initialState';
 
 const ContactForm = ({ onSubmit }) => {
   const [formState, setFormState] = useState({ ...initialState });
+  const [toggle, setToggle] = useState(false);
 
   const handleChange = ({ target }) => {
     const { name, value } = target;
@@ -19,9 +20,15 @@ const ContactForm = ({ onSubmit }) => {
     evt.preventDefault();
     onSubmit({ ...formState });
     setFormState({ ...initialState });
+    setToggle(false);
   };
 
-  const { name, number } = formState;
+  const handleAddFields = evt => {
+    evt.preventDefault();
+    setToggle(!toggle);
+  };
+
+  const { name, number, email } = formState;
 
   return (
     <form onSubmit={handleSubmit} className={css.form}>
@@ -51,11 +58,28 @@ const ContactForm = ({ onSubmit }) => {
           className={css.input}
         />
       </label>
-      {name && (
-        <button type="submit" className={css.btn}>
-          Add contact
-        </button>
+      {toggle && (
+        <label className={css.label}>
+          Email
+          <input
+            type="email"
+            name="email"
+            value={email}
+            onChange={handleChange}
+            className={css.input}
+          />
+        </label>
       )}
+      <div className={css.buttonsWrapper}>
+        <button className={css.additionalBtn} onClick={handleAddFields}>
+          Additional fields
+        </button>
+        {name && (
+          <button type="submit" className={css.btn}>
+            Add contact
+          </button>
+        )}
+      </div>
     </form>
   );
 };
