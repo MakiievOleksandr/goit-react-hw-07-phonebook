@@ -22,10 +22,7 @@
 
 }
 
-.buttonsWrapper {
-    display: flex;
-    justify-content: space-between;
-}
+
 
 .btn {
     width: 100px;
@@ -35,15 +32,4 @@
     border-radius: 5px;
     background-color: rgb(43, 218, 60);
     cursor: pointer;
-}
-
-.additionalBtn {
-    background-color: rgba(211, 211, 211, 0.264);
-    max-width: 100px;
-    padding: 5px;
-    border: none;
-    border-radius: 5px;
-    color: rgb(184, 180, 180);
-    cursor: pointer;
-
 }

@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types';
-import { nanoid } from 'nanoid';
 
 import { useState } from 'react';
 import css from '../ContactForm/contact.module.css';
@@ -7,12 +6,11 @@ import initialState from './initialState';
 
 const ContactForm = ({ onSubmit }) => {
   const [formState, setFormState] = useState({ ...initialState });
-  const [toggle, setToggle] = useState(false);
 
   const handleChange = ({ target }) => {
     const { name, value } = target;
     setFormState(prevState => {
-      return { ...prevState, [name]: value, id: nanoid() };
+      return { ...prevState, [name]: value };
     });
   };
 
@@ -20,15 +18,9 @@ const ContactForm = ({ onSubmit }) => {
     evt.preventDefault();
     onSubmit({ ...formState });
     setFormState({ ...initialState });
-    setToggle(false);
   };
 
-  const handleAddFields = evt => {
-    evt.preventDefault();
-    setToggle(!toggle);
-  };
-
-  const { name, number, email } = formState;
+  const { name, phone } = formState;
 
   return (
     <form onSubmit={handleSubmit} className={css.form}>
@@ -46,11 +38,11 @@ const ContactForm = ({ onSubmit }) => {
         />
       </label>
       <label className={css.label}>
-        Number
+        Phone
         <input
           type="tel"
-          name="number"
-          value={number}
+          name="phone"
+          value={phone}
           pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
           title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
           required
@@ -58,28 +50,11 @@ const ContactForm = ({ onSubmit }) => {
           className={css.input}
         />
       </label>
-      {toggle && (
-        <label className={css.label}>
-          Email
-          <input
-            type="email"
-            name="email"
-            value={email}
-            onChange={handleChange}
-            className={css.input}
-          />
-        </label>
-      )}
-      <div className={css.buttonsWrapper}>
-        <button className={css.additionalBtn} onClick={handleAddFields}>
-          Additional fields
+      {name && (
+        <button type="submit" className={css.btn}>
+          Add contact
         </button>
-        {name && (
-          <button type="submit" className={css.btn}>
-            Add contact
-          </button>
-        )}
-      </div>
+      )}
     </form>
   );
 };

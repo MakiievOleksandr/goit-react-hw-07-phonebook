@@ -1,4 +1,4 @@
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import css from '../ListItem/listItem.module.css';
 
 function ListItem({ onDeleteContact, contact }) {
@@ -7,7 +7,7 @@ function ListItem({ onDeleteContact, contact }) {
       <p className={css.text}>
         {contact.name}
         {': '}
-        {contact.number}
+        {contact.phone}
       </p>
       <button
         type="button"
@@ -22,11 +22,11 @@ function ListItem({ onDeleteContact, contact }) {
 
 export default ListItem;
 
-// ListItem.propTypes = {
-//   onDeleteContact: PropTypes.func.isRequired,
-//   contact: PropTypes.shape({
-//     name: PropTypes.string.isRequired,
-//     number: PropTypes.string.isRequired,
-//     id: PropTypes.string.isRequired,
-//   }),
-// };
+ListItem.propTypes = {
+  onDeleteContact: PropTypes.func.isRequired,
+  contact: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    phone: PropTypes.string.isRequired,
+    id: PropTypes.string.isRequired,
+  }),
+};
